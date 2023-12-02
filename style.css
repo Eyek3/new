@@ -1,0 +1,121 @@
+*
+.gradient-background {
+    background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    background: green;
+    padding: 40px 60px;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg, rgb(255, 201, 165), #8383fa, rgb(250, 124, 197), #4141fd);
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+@font-face {
+    font-family: myFont;
+    src: url(HooeyDEMO-Regular.otf);
+}
+h2 {
+    font-size: 6em;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: myFont;
+    color: black;
+    
+}
+
+.reset {
+    padding: 15px 20px;
+    color: green;
+    background: white;
+    border: none;
+    font-size: 1.5em;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.reset:focus {
+    color: white;
+    background: yellow;
+}
+
+.game {
+    width: 440px;
+    height: 440px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.item {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    background: white;
+    transition: 0.25s;
+}
+
+.item.boxOpen {
+    transform: rotateY(0deg);
+}
+
+.item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: yellow;
+    opacity: 0.5;
+    background-size: cover; 
+    transition: 0.25s;
+    transform: rotate(0deg);
+    backface-visibility: hidden;
+}
+
+
+.boxOpen:after,
+.boxMatch:after {
+    transform: rotateY(180deg);
+}

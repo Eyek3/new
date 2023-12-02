@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Memory Game JS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="confetti-container"></div>
+    <div class="container">
+        <h2>Memory Game</h2>
+        <div class="game"></div>
+        <button class="reset" onclick="window.location.reload();">Reset Game</button>
+    </div>
+
+    <script>
+        const emojis = ["😍","😍","😂","😂","👻","👻","🤑","🤑","😇","😇","🤖","🤖","😡","😡","🥳","🥳"];
+        var shuf_emojis = emojis.sort(() => (Math.random() > .5) ? 2 : -1);
+
+        for (var i = 0; i < emojis.length; i++) {
+            let box = document.createElement('div');
+            box.className = 'item';
+            box.innerHTML = shuf_emojis[i];
+
+            box.onclick = function () {
+                this.classList.add('boxOpen');
+
+                setTimeout(function () {
+                    if (document.querySelectorAll('.boxOpen').length > 1) {
+                        const openBoxes = document.querySelectorAll('.boxOpen');
+                        if (openBoxes[0].innerHTML === openBoxes[1].innerHTML) {
+                            openBoxes.forEach(box => {
+                                box.classList.remove('boxOpen');
+                                box.classList.add('boxMatch');
+                            });
+
+                            if (document.querySelectorAll('.boxMatch').length === emojis.length) {
+                                celebrateWin();
+                            }
+                        } else {
+                            openBoxes.forEach(box => box.classList.remove('boxOpen'));
+                        }
+                    }
+                }, 500);
+            };
+
+            document.querySelector('.game').appendChild(box);
+        }
+
+        particlesJS("confetti-container", {
+            particles: {
+                number: { value: 100 },
+                color: { value: "#ff0000" },
+                shape: { type: "circle" },
+                size: { value: 5 },
+                opacity: { value: 0.7, random: true },
+                move: { enable: true, speed: 5, direction: "bottom", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                events: {
+                    onhover: { enable: true, mode: "repulse" }
+                }
+            }
+        });
+
+        function celebrateWin() {
+            alert('You win!');
+            confetti();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="confetti.js"></script>
+</body>
+</html>
